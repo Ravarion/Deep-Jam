@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Shark : MonoBehaviour {
 
     public int maxHealth;
     private int health;
+
+    public GameObject[] healthIcons;
 
     public Vector3 desiredPosition;
     public float movementSpeed = 1f;
@@ -33,11 +36,17 @@ public class Shark : MonoBehaviour {
             if(!collision.gameObject.GetComponent<Harpoon>().desiredLocationMet)
             {
                 --health;
-                if(health <= 0)
-                {
-                    GameOver();
-                }
             }
+        }
+        else if(collision.gameObject.GetComponent<SeaUrchin>())
+        {
+            --health;
+            Destroy(collision.gameObject);
+        }
+        UpdateHealthIcons();
+        if (health <= 0)
+        {
+            GameOver();
         }
     }
 
@@ -45,7 +54,24 @@ public class Shark : MonoBehaviour {
     {
         if (collision.gameObject.GetComponent<Fish>())
         {
+            ++health;
+            UpdateHealthIcons();
             Destroy(collision.gameObject);
+        }
+    }
+
+    private void UpdateHealthIcons()
+    {
+        for(int i = 0; i < maxHealth; i++)
+        {
+            if(health > i)
+            {
+                healthIcons[i].GetComponent<Image>().enabled = true;
+            }
+            else
+            {
+                healthIcons[i].GetComponent<Image>().enabled = false;
+            }
         }
     }
 

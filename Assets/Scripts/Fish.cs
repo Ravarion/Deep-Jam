@@ -18,7 +18,8 @@ public class Fish : MonoBehaviour {
         {
             direction = Random.Range(-1, 1);
         }
-        sideSwimSpeed = Random.Range(.1f, .4f) * direction;
+        sideSwimSpeed = Random.Range(.005f, .05f) * direction;
+        StartCoroutine(ChangeDirections());
     }
 
 	void Update ()
@@ -26,16 +27,16 @@ public class Fish : MonoBehaviour {
         transform.Translate(new Vector3(sideSwimSpeed, upwardsSwimSpeed, 0));
         if(transform.position.x > utility.GetScreenDimensions().right)
         {
-            if(direction > 0)
+            if(sideSwimSpeed > 0)
             {
-                direction *= -1;
+                sideSwimSpeed *= -1;
             }
         }
         if (transform.position.x < utility.GetScreenDimensions().left)
         {
-            if (direction < 0)
+            if (sideSwimSpeed < 0)
             {
-                direction *= -1;
+                sideSwimSpeed *= -1;
             }
         }
     }
@@ -44,6 +45,6 @@ public class Fish : MonoBehaviour {
     {
         yield return new WaitForSeconds(Random.Range(.3f, 2f));
         direction *= -1;
-        sideSwimSpeed = Random.Range(0f, .1f) * direction;
+        sideSwimSpeed = Random.Range(.005f, .05f) * direction;
     }
 }

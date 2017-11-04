@@ -7,6 +7,11 @@ public class SharkController : MonoBehaviour {
     public GameObject sharkObject;
     public Transform controlledObjectIcon;
 
+    private void Start()
+    {
+        
+    }
+
     private void OnMouseDrag()
     {
         Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

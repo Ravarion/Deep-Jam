@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 87599642}
   - component: {fileID: 87599643}
   m_Layer: 0
-  m_Name: TroubleSpawner
+  m_Name: HarpoonSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &87599643
 MonoBehaviour:
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toSpawn: {fileID: 1357668959125560, guid: 73e2401b72f255b468813abfdbacf871, type: 2}
   spawnLatency: 3
-  nextSpawnTime: 1
+  nextSpawnTime: 5
 --- !u!1 &306212985
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +233,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &329141816 stripped
 Transform:
@@ -245,40 +245,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1206520507271848, guid: 956edff4854513146885d21f43c6d675,
     type: 2}
   m_PrefabInternal: {fileID: 928498555}
---- !u!114 &787571009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 787571007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95d8788a60a60684c87d97f5ff0fcd26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredPosition: {x: 0, y: 0, z: 0}
-  movementSpeed: 0.2
-  movementBuffer: 0.005
---- !u!50 &787571010
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 787571007}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &928498555
 Prefab:
   m_ObjectHideFlags: 0
@@ -316,7 +282,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4536163987162956, guid: 956edff4854513146885d21f43c6d675, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114965240652567302, guid: 956edff4854513146885d21f43c6d675,
+        type: 2}
+      propertyPath: maxHealth
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 956edff4854513146885d21f43c6d675, type: 2}
@@ -358,7 +329,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4500581724239314, guid: b7f1a200a6ddfdc47b6a816824927147, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 212121028180097370, guid: b7f1a200a6ddfdc47b6a816824927147,
         type: 2}
@@ -400,7 +371,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &986922362
 MonoBehaviour:
@@ -416,6 +387,49 @@ MonoBehaviour:
   toSpawn: {fileID: 1068277994352258, guid: 119f3a76eb755294ab2b68e83d318930, type: 2}
   spawnLatency: 1
   nextSpawnTime: 2
+--- !u!1 &1198827820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1198827822}
+  - component: {fileID: 1198827821}
+  m_Layer: 0
+  m_Name: UrchinSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1198827821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1198827820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc14c6fb85073df41adcc5438a38d4b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toSpawn: {fileID: 1173367961933704, guid: d3792b52e0cab8f4ea9f73de7cbcfffe, type: 2}
+  spawnLatency: 3
+  nextSpawnTime: 5
+--- !u!4 &1198827822
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1198827820}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1441437351 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1301835104430268, guid: b7f1a200a6ddfdc47b6a816824927147,
@@ -459,3 +473,44 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!1 &1852055198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1852055200}
+  - component: {fileID: 1852055199}
+  m_Layer: 0
+  m_Name: UtilityScripts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1852055199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1852055198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8354e129e05906e4487e4bb42c247bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficulty: 0
+--- !u!4 &1852055200
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1852055198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

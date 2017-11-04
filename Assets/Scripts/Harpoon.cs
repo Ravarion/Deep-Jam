@@ -9,20 +9,36 @@ public class Harpoon : MonoBehaviour {
     public GameObject harpoonAlert;
 
     public float alertTimer;
-    private bool attacking = true;
+    public float minAlertTimer;
+    public float maxAlertTimer;
+    public float attackingTimer;
+    public float minAttackingTimer;
+    public float maxAttackingTimer;
+    private bool attacking = false;
 
     public Vector3 desiredLocation;
-    public float attackingSpeed;
+    public float minAttackingSpeed;
+    public float maxAttackingSpeed;
     public float floatingSpeed;
+    public float minAimingSpeed;
+    public float maxAimingSpeed;
     public bool desiredLocationMet = false;
 
     private GameObject shark;
+    private Utility utility;
+    private float screenTop;
 
 	void Start ()
     {
-        Instantiate(harpoonAlertPrefab);
+        utility = FindObjectOfType<Utility>();
+        alertTimer = minAlertTimer + (maxAlertTimer - minAlertTimer) * utility.difficulty;
+        screenTop = utility.GetScreenDimensions().top;
+        harpoonAlert = Instantiate(harpoonAlertPrefab);
+        harpoonAlert.transform.position = new Vector3(Random.Range(utility.GetScreenDimensions().left, utility.GetScreenDimensions().right),
+            screenTop, 0);
         shark = FindObjectOfType<Shark>().gameObject;
-        transform.position = new Vector3(0,5);
+        transform.position = new Vector3(0,10);
+        AlertPlayer();
 	}
 	
 	void Update ()
@@ -34,20 +50,29 @@ public class Harpoon : MonoBehaviour {
             if (alertTimer <= 0)
             {
                 attacking = true;
-                TurnOffAlert();
+                attackingTimer = minAttackingTimer + (maxAttackingTimer - minAttackingTimer) * utility.difficulty;
                 transform.position = new Vector3(harpoonAlert.transform.position.x, transform.position.y);
                 desiredLocation = new Vector3(harpoonAlert.transform.position.x, 0);
+
+                //Stop harpoon alert from flashing
+                harpoonAlert.GetComponent<Alert>().SetShouldFlash(true);
             }
+        }
+        else if(attackingTimer > 0)
+        {
+            attackingTimer -= Time.deltaTime;
         }
         else
         {
-            if (Vector2.Distance(transform.position, desiredLocation) < attackingSpeed)
+            if (Vector2.Distance(transform.position, desiredLocation) < minAttackingSpeed + (maxAttackingSpeed - minAttackingSpeed) * utility.difficulty)
             {
                 desiredLocationMet = true;
+                TurnOffAlert();
             }
             if (!desiredLocationMet)
             {
-                transform.position = Vector3.MoveTowards(transform.position, desiredLocation, attackingSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, desiredLocation, minAttackingSpeed +
+                    (maxAttackingSpeed - minAttackingSpeed) * utility.difficulty);
             }
             else
             {
@@ -65,7 +90,10 @@ public class Harpoon : MonoBehaviour {
 
     void AlertPlayer()
     {
-        harpoonAlert.transform.position = shark.transform.position;//new Vector3(shark.transform.position.x, 4);
+        //harpoonAlert.transform.position = new Vector3(shark.transform.position.x, screenTop - 
+        //    harpoonAlert.GetComponent<CircleCollider2D>().bounds.center.y);
+        harpoonAlert.transform.position = Vector3.MoveTowards(harpoonAlert.transform.position,
+            new Vector3(shark.transform.position.x, screenTop), minAimingSpeed + (maxAimingSpeed - minAimingSpeed) * utility.difficulty);
     }
 
     void TurnOffAlert()
@@ -74,3 +102,4 @@ public class Harpoon : MonoBehaviour {
         //harpoonAlert.GetComponent<SpriteRenderer>().enabled = false;
     }
 }
+

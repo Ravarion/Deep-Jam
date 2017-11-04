@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour {
 
+    public Sprite[] sprites;
+
     private float upwardsSwimSpeed;
     private float sideSwimSpeed;
     private int direction;
@@ -17,8 +19,13 @@ public class Fish : MonoBehaviour {
         while(direction == 0)
         {
             direction = Random.Range(-1, 1);
+            if(direction > 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
         }
         sideSwimSpeed = Random.Range(.005f, .05f) * direction;
+        SelectSprite();
         StartCoroutine(ChangeDirections());
     }
 
@@ -29,16 +36,21 @@ public class Fish : MonoBehaviour {
         {
             if(sideSwimSpeed > 0)
             {
-                sideSwimSpeed *= -1;
+                ChangeDirections();
             }
         }
         if (transform.position.x < utility.GetScreenDimensions().left)
         {
             if (sideSwimSpeed < 0)
             {
-                sideSwimSpeed *= -1;
+                ChangeDirections();
             }
         }
+    }
+
+    private void SelectSprite()
+    {
+        GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
     }
 
     IEnumerator ChangeDirections()
@@ -46,5 +58,13 @@ public class Fish : MonoBehaviour {
         yield return new WaitForSeconds(Random.Range(.3f, 2f));
         direction *= -1;
         sideSwimSpeed = Random.Range(.005f, .05f) * direction;
+        if (sideSwimSpeed < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
     }
 }

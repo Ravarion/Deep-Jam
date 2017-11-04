@@ -54,9 +54,13 @@ public class Shark : MonoBehaviour {
     {
         if (collision.gameObject.GetComponent<Fish>())
         {
-            ++health;
-            UpdateHealthIcons();
             Destroy(collision.gameObject);
+
+            if(false)
+            {
+                ++health;
+                UpdateHealthIcons();
+            }
         }
     }
 

@@ -14,6 +14,9 @@ public class Fish : MonoBehaviour {
 
     void Start()
     {
+        float scale = Random.Range(0.2f, 0.6f);
+        transform.localScale = new Vector3(scale, scale, 1);
+
         utility = FindObjectOfType<Utility>();
         upwardsSwimSpeed = Random.Range(.01f, .05f);
         while(direction == 0)
@@ -36,15 +39,19 @@ public class Fish : MonoBehaviour {
         {
             if(sideSwimSpeed > 0)
             {
-                ChangeDirections();
+                DirectionSwitch();
             }
         }
         if (transform.position.x < utility.GetScreenDimensions().left)
         {
             if (sideSwimSpeed < 0)
             {
-                ChangeDirections();
+                DirectionSwitch();
             }
+        }
+        if(transform.position.y > 10)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -53,9 +60,8 @@ public class Fish : MonoBehaviour {
         GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
     }
 
-    IEnumerator ChangeDirections()
+    private void DirectionSwitch()
     {
-        yield return new WaitForSeconds(Random.Range(.3f, 2f));
         direction *= -1;
         sideSwimSpeed = Random.Range(.005f, .05f) * direction;
         if (sideSwimSpeed < 0)
@@ -66,5 +72,11 @@ public class Fish : MonoBehaviour {
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
+    }
+
+    IEnumerator ChangeDirections()
+    {
+        yield return new WaitForSeconds(Random.Range(.3f, 1f));
+        DirectionSwitch();
     }
 }

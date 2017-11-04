@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour {
 
-    public GameObject[] depths;
-    public GameObject[] transitions;
+    public Sprite[] depths;
+    public Sprite[] transitions;
 
     void Start()
     {

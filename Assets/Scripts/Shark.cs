@@ -55,6 +55,7 @@ public class Shark : MonoBehaviour {
         if (collision.gameObject.GetComponent<Fish>())
         {
             Destroy(collision.gameObject);
+            transform.GetChild(0).GetComponent<Animator>().SetTrigger("Bite" + Random.Range(1, 5));
 
             if(false)
             {

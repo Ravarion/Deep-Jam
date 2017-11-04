@@ -31,7 +31,7 @@ public class Utility : MonoBehaviour {
 
     private void Update()
     {
-        //difficulty = Mathf.(Time.time)
+        difficulty = Sigmoid(Time.time/120);
     }
 
     private void FindScreenDimensions()
@@ -45,5 +45,20 @@ public class Utility : MonoBehaviour {
     public ScreenDimensions GetScreenDimensions()
     {
         return screenDimensions;
+    }
+
+    //Formula: 1/(1 + e^(-val))
+    private float Sigmoid(float val)
+    {
+        if (float.IsNaN(val))
+        {
+            print("Sigmoid Value Error: NAN");
+        }
+        float result = 1f / (1f + Mathf.Exp(-val) == 0 ? 0.0001f : 1f + Mathf.Exp(-val));
+        if (float.IsNaN(result))
+        {
+            print("Sigmoid Result Error: NAN");
+        }
+        return result;
     }
 }

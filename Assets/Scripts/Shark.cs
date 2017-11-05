@@ -10,10 +10,13 @@ public class Shark : MonoBehaviour {
     private int health;
 
     public GameObject[] healthIcons;
+    public Text fishScore;
 
     public Vector3 desiredPosition;
     public float movementSpeed = 1f;
     public float movementBuffer = .005f;
+
+    private int fishEaten = 0;
 
     private void Start()
     {
@@ -56,8 +59,10 @@ public class Shark : MonoBehaviour {
         {
             Destroy(collision.gameObject);
             transform.GetChild(0).GetComponent<Animator>().SetTrigger("Bite" + Random.Range(1, 5));
+            ++fishEaten;
+            fishScore.text = fishEaten.ToString();
 
-            if(false)
+            if(fishEaten%5 == 0 && health < maxHealth)
             {
                 ++health;
                 UpdateHealthIcons();
@@ -80,7 +85,7 @@ public class Shark : MonoBehaviour {
         }
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         SceneManager.LoadScene("DeathScene");
     }

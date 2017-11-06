@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainGame.unity
     guid: f966d760987049a438742ed99617a928
   - enabled: 1
+    path: Assets/Scenes/NetCatchEnd.unity
+    guid: 2d2c1a2fe53233e4e9be38e2c3e4d055
+  - enabled: 1
     path: Assets/Scenes/DeathScene.unity
     guid: 0e35eadb9ed37de4da78b5d0a1d661ac
   - enabled: 1

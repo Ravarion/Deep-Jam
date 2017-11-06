@@ -31,7 +31,7 @@ public class Utility : MonoBehaviour {
 
     private void Update()
     {
-        difficulty = Sigmoid(Time.timeSinceLevelLoad/8);
+        difficulty = Sigmoid(Time.timeSinceLevelLoad/80);
     }
 
     private void FindScreenDimensions()

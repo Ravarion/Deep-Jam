@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Shark : MonoBehaviour {
 
+    public AudioClip bite;
+
     public int maxHealth;
     private int health;
 
@@ -39,11 +41,13 @@ public class Shark : MonoBehaviour {
             if(!collision.gameObject.GetComponent<Harpoon>().desiredLocationMet)
             {
                 --health;
+                StartCoroutine(DamageFlash());
             }
         }
         else if(collision.gameObject.GetComponent<SeaUrchin>())
         {
             --health;
+            StartCoroutine(DamageFlash());
             Destroy(collision.gameObject);
         }
         UpdateHealthIcons();
@@ -61,8 +65,9 @@ public class Shark : MonoBehaviour {
             transform.GetChild(0).GetComponent<Animator>().SetTrigger("Bite" + Random.Range(1, 5));
             ++fishEaten;
             fishScore.text = fishEaten.ToString();
+            GetComponent<AudioSource>().PlayOneShot(bite);
 
-            if(fishEaten%5 == 0 && health < maxHealth)
+            if (fishEaten%5 == 0 && health < maxHealth)
             {
                 ++health;
                 UpdateHealthIcons();
@@ -82,6 +87,24 @@ public class Shark : MonoBehaviour {
             {
                 healthIcons[i].GetComponent<Image>().enabled = false;
             }
+        }
+    }
+
+    IEnumerator DamageFlash()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if(i%2 == 0)
+            {
+                Color newColor = Color.red;
+                transform.GetChild(0).GetComponent<SpriteRenderer>().color = newColor;
+            }
+            else
+            {
+                Color newColor = Color.white;
+                transform.GetChild(0).GetComponent<SpriteRenderer>().color = newColor;
+            }
+            yield return new WaitForSeconds(.3f);
         }
     }
 

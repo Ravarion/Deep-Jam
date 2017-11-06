@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Harpoon : MonoBehaviour {
 
+    public GameObject harpoonParticles;
+
     public GameObject harpoonAlertPrefab;
 
     public GameObject harpoonAlert;
@@ -67,6 +69,7 @@ public class Harpoon : MonoBehaviour {
             if (Vector2.Distance(transform.position, desiredLocation) < minAttackingSpeed + (maxAttackingSpeed - minAttackingSpeed) * utility.difficulty)
             {
                 desiredLocationMet = true;
+                harpoonParticles.SetActive(false);
                 TurnOffAlert();
             }
             if (!desiredLocationMet)

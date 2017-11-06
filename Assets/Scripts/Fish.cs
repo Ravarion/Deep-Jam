@@ -28,7 +28,7 @@ public class Fish : MonoBehaviour {
             }
         }
         sideSwimSpeed = Random.Range(.005f, .05f) * direction;
-        SelectSprite();
+        //SelectSprite();
         StartCoroutine(ChangeDirections());
     }
 

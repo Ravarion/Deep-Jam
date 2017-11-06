@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BackgroundScroller : MonoBehaviour {
 
@@ -21,7 +22,7 @@ public class BackgroundScroller : MonoBehaviour {
         transform.Translate(Vector2.up * .1f);
         if(transform.position.y > 430)
         {
-            FindObjectOfType<Shark>().GameOver();
+            SceneManager.LoadScene("NetCatchEnd");
         }
 	}
 
